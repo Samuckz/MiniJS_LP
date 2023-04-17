@@ -1,0 +1,20 @@
+=== ALGUMAS OBERVAÇÕES ===
+
+Lexical Analytics
+- Case 2, devo colocar o token.lexeme += (char) c?
+- Case 3
+- Case 4
+- Case 11
+- Case 12 (DÚVIDAS AQUI)
+
+
+-------------------------------
+
+Systatic Analysis
+Verificar:
+- procExpr() 
+- procCond()
+- procRel()
+- procTerm()
+
+-------------------------------
