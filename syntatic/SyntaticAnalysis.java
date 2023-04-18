@@ -420,6 +420,7 @@ public class SyntaticAnalysis {
             if (match(DOT)) {
                 procName();
             } else {
+                eat(OPEN_BRA);
                 procExpr();
                 eat(CLOSE_BRA);
             }
