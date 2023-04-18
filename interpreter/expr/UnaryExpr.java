@@ -53,11 +53,14 @@ public class UnaryExpr extends Expr {
     }
 
     private Value<?> posOp(Value<?> v) {
-        throw new RuntimeException("implement me!");
+        double d = NumberValue.convert(v);
+        return new NumberValue(d);
     }
 
     private Value<?> negOp(Value<?> v) {
-        throw new RuntimeException("implement me!");
+        double d = NumberValue.convert(v);
+        return new NumberValue(-d);
+        // Vai falhar se o lexico não estiver completo!
     }
 
     private Value<?> preIncOp(Value<?> v) {
