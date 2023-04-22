@@ -144,7 +144,7 @@ public class LexicalAnalysis implements AutoCloseable {
                     break;
 
                 case 3:
-                    if(c != "\n"){
+                    if(c != '\n'){
                         state = 3;
                     } else{
                         state = 1;
@@ -153,7 +153,7 @@ public class LexicalAnalysis implements AutoCloseable {
                     break;
 
                 case 4:
-                    if(c == "="){
+                    if(c == '='){
                         state = 13;
                         token.lexeme += (char) c;
                     } else{
@@ -245,8 +245,8 @@ public class LexicalAnalysis implements AutoCloseable {
                     if(c == '"'){
                         state = 14;
                         token.type = Token.Type.TEXT;
-                        // O que inserir aqui
-                        token.literal = new TextValue(token.lexeme);
+                        // O que inserir aqui?
+                        //token.literal = new TextValue(token.lexeme);
                     } else{
                         state = 12;
                         token.lexeme += (char) c;

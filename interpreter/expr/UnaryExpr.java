@@ -1,6 +1,7 @@
 package interpreter.expr;
 
 import interpreter.value.BoolValue;
+import interpreter.value.NumberValue;
 import interpreter.value.Value;
 
 public class UnaryExpr extends Expr {
@@ -60,7 +61,6 @@ public class UnaryExpr extends Expr {
     private Value<?> negOp(Value<?> v) {
         double d = NumberValue.convert(v);
         return new NumberValue(-d);
-        // Vai falhar se o lexico não estiver completo!
     }
 
     private Value<?> preIncOp(Value<?> v) {

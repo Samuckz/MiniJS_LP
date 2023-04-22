@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import interpreter.Interpreter;
-import interpreter.expr.Expr;
+import interpreter.command.Command;
 import lexical.LexicalAnalysis;
 import syntatic.SyntaticAnalysis;
 
@@ -64,8 +64,8 @@ public class mjsi {
             // O código a seguir é dado para testar o interpretador.
             // TODO: descomentar depois que o analisador léxico estiver OK.
             SyntaticAnalysis s = new SyntaticAnalysis(l);
-            Expr expr = s.process();
-            Interpreter.interpret(expr);
+            Command cmd = s.process();
+            Interpreter.interpret(cmd);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

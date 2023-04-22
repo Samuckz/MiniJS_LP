@@ -131,6 +131,7 @@ public class SyntaticAnalysis {
         procName();
 
         if (match(ASSIGN)) {
+            System.out.println("Get here!");
             procExpr();
         }
 
@@ -201,9 +202,6 @@ public class SyntaticAnalysis {
     // <expr> ::= <cond> [ '?' <expr> ':' <expr> ]
     private Expr procExpr() {
         Expr expr = procCond();
-
-        // O que fazer??????
-
         if(match(TERNARY)){
             procExpr();
 
