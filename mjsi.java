@@ -50,8 +50,8 @@ public class mjsi {
 
     private static void run(InputStream is) {
         try (LexicalAnalysis l = new LexicalAnalysis(is)) {
-            // // O cÃ³digo a seguir Ã© usado apenas para testar o analisador lÃ©xico.
-            // // TODO: depois de pronto, comentar o cÃ³digo abaixo.
+            // // O código a seguir é usado apenas para testar o analisador léxico.
+            // // TODO: depois de pronto, comentar o código abaixo.
             // Token lex;
             // do {
             //     lex = l.nextToken();
@@ -61,8 +61,8 @@ public class mjsi {
             //          lex.type != INVALID_TOKEN &&
             //          lex.type != UNEXPECTED_EOF);
 
-            // O cÃ³digo a seguir Ã© dado para testar o interpretador.
-            // TODO: descomentar depois que o analisador lÃ©xico estiver OK.
+            // O código a seguir é dado para testar o interpretador.
+            // TODO: descomentar depois que o analisador léxico estiver OK.
             SyntaticAnalysis s = new SyntaticAnalysis(l);
             Command cmd = s.process();
             Interpreter.interpret(cmd);

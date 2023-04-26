@@ -73,7 +73,6 @@ public class Token {
         this.line = 0;
         this.literal = literal;
     }
-
     public String toString() {
         return new StringBuffer()
             .append("(\"")
@@ -87,5 +86,4 @@ public class Token {
             .append(")")
             .toString();
     }
-
 }

@@ -47,7 +47,7 @@ public class ObjectValue extends Value<Map<TextValue, Value<?>>> {
 
             sb.append(k.toString());
             sb.append(":");
-            sb.append(v == null ? "null" : v.toString());
+            sb.append(v == null ? "undefined" : v.toString());
             sb.append(", ");
         }
 

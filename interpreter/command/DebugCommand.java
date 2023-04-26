@@ -1,24 +1,24 @@
 package interpreter.command;
 
 import interpreter.expr.Expr;
-import interpreter.expr.Variable;
 import interpreter.value.Value;
 
-public class InitializeCommand extends Command {
-
-    private Variable var;
+public class DebugCommand extends Command {
+    
     private Expr expr;
 
-    public InitializeCommand(int line, Variable var, Expr expr) {
+    public DebugCommand(int line, Expr expr) {
         super(line);
-        this.var = var;
         this.expr = expr;
     }
 
     @Override
     public void execute() {
         Value<?> v = expr.expr();
-        var.initialize(v);
+        if (v == null)
+            System.out.println("undefined");
+        else
+            System.out.println(v);
     }
-    
+
 }

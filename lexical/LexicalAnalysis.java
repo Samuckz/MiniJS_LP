@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import interpreter.value.NumberValue;
+import interpreter.value.TextValue;
 
 public class LexicalAnalysis implements AutoCloseable {
 
@@ -91,9 +92,9 @@ public class LexicalAnalysis implements AutoCloseable {
 
             switch (state) {
                 case 1:
-                    if (c == ' ' || c == '\t' ||
-                            c == '\r') {
+                    if (c == ' ' || c == '\t' || c == '\r') {
                         state = 1;
+                        
                     } else if (c == '\n') {
                         state = 1;
                         line++;
@@ -102,6 +103,12 @@ public class LexicalAnalysis implements AutoCloseable {
                             c == '(' || c == ')' || c == '{' ||
                             c == '}' || c == '[' || c == ']') {
                         state = 13;
+                        token.lexeme += (char) c;
+                    } else if (c == '/') {//1->2
+                        state = 2;
+                        token.lexeme += (char) c;
+                    } else if (c == '=' || c == '!' || c == '<' || c == '>') {//1->4
+                        state = 4;
                         token.lexeme += (char) c;
                     } else if (c == '+') {
                         state = 5;
@@ -122,6 +129,8 @@ public class LexicalAnalysis implements AutoCloseable {
                     } else if (Character.isDigit(c)) {
                         state = 10;
                         token.lexeme += (char) c;
+                    } else if (c == '"'){//1->12
+                        state = 12;
                     } else if (c == -1) {
                         state = 14;
                         token.type = Token.Type.END_OF_FILE;
@@ -132,34 +141,35 @@ public class LexicalAnalysis implements AutoCloseable {
                     }
 
                     break;
-                case 2:
-                    if(c == '/'){
+                case 2://NEW
+                	if (c == '/') {
                         state = 3;
-                        // DEVO COLOCAR O TOKEN LEXEME?
                         token.lexeme += (char) c;
-                    } else{
+                	
+            		} else {
                         state = 13;
                         ungetc(c);
-                    }
+            		}
+                	
                     break;
-
-                case 3:
-                    if(c != '\n'){
-                        state = 3;
-                    } else{
-                        state = 1;
-                        line++;
-                    }
+                case 3://NEW
+		             if (c == '\n') {
+		                state = 1;
+		                line++;
+		             } else {
+		            	 state = 3;
+		             }
+		             
                     break;
-
                 case 4:
-                    if(c == '='){
-                        state = 13;
-                        token.lexeme += (char) c;
-                    } else{
-                        state = 13;
-                        ungetc(c);
-                    }
+                	if (c == '=') {
+                		state = 13;
+                		token.lexeme += (char) c;
+                	} else {
+                		state = 13;
+                		ungetc(c);
+                	}
+                	
                     break;
                 case 5:
                     if (c == '+') {
@@ -169,7 +179,7 @@ public class LexicalAnalysis implements AutoCloseable {
                         state = 13;
                         ungetc(c);
                     }
-
+                    
                     break;
                 case 6:
                     if (c == '-') {
@@ -228,29 +238,29 @@ public class LexicalAnalysis implements AutoCloseable {
                     }
 
                     break;
-
                 case 11:
-                    if(Character.isDigit(c)){
-                        state = 11;
-                        token.lexeme += (char) c;
-                    } else{
-                        state = 14;
-                        ungetc(c);
-                        token.type = Token.Type.NUMBER;
-                        token.literal = new NumberValue(toNumber(token.lexeme));
-                    }
+                	 if (Character.isDigit(c)) {
+                         state = 11;
+                         token.lexeme += (char) c;
+                     } else {
+                    	 state = 14;
+                         ungetc(c);
+                         token.type = Token.Type.NUMBER;
+                         token.literal = new NumberValue(toNumber(token.lexeme));
+                     }
+                	 
                     break;
-
                 case 12:
-                    if(c == '"'){
-                        state = 14;
-                        token.type = Token.Type.TEXT;
-                        // O que inserir aqui?
-                        //token.literal = new TextValue(token.lexeme);
-                    } else{
-                        state = 12;
-                        token.lexeme += (char) c;
-                    }
+                	 if (c != '"') {
+                    	 state = 12;
+                    	 token.lexeme += (char) c;
+                        
+                     } else {
+                    	 state = 14;
+                         token.type = Token.Type.TEXT;
+                         token.literal = new TextValue(token.lexeme);
+                     }
+                	 
                     break;
                 default:
                     throw new RuntimeException("Unreachable");

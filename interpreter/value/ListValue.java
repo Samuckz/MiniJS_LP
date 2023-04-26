@@ -42,7 +42,7 @@ public class ListValue extends Value<List<Value<?>>> {
         sb.append("[");
 
         for (Value<?> v : this.value) {
-            sb.append(v == null ? "null" : v.toString());
+            sb.append(v == null ? "undefined" : v.toString());
             sb.append(", ");
         }
 
